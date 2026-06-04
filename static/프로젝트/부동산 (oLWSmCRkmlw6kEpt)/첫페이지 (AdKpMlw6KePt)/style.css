@@ -4368,14 +4368,17 @@ body.unit-types-lightbox-open {
   opacity: 1;
   transform: translateY(0);
 }
+.properties-N9 .checkset.checkset-fill .checkset-input:checked+.checkset-label {
+  background: #e8b84b !important;
+}
 .properties-N9 .checkset.checkset-fill .checkset-input:checked+.checkset-label::after {
   content: "";
   left: 0.72rem;
   top: 50%;
   width: 0.46rem;
   height: 0.84rem;
-  border-right: 2px solid #f5cf5a;
-  border-bottom: 2px solid #f5cf5a;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   transform: translateY(-58%) rotate(45deg);
   font-family: inherit !important;
   font-size: 0
@@ -4872,14 +4875,14 @@ body.unit-types-lightbox-open {
   }
 }
 .properties-N9 .form-btn .btnset-primary {
-  background: #f5cf5a !important;
+  background: #e8b84b !important;
   color: #183355 !important;
-  border-color: #f5cf5a !important;
+  border-color: #e8b84b !important;
 }
 .properties-N9 .form-btn .btnset-primary:hover,
 .properties-N9 .form-btn .btnset-primary:active {
-  background: #ffdf58 !important;
-  border-color: #ffdf58 !important;
+  background: #f5cf5a !important;
+  border-color: #f5cf5a !important;
 }
 /* properties-N3 */
 /* ==========================================
