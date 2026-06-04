@@ -683,8 +683,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
     align-items: center;
     justify-content: center;
     width: auto;
-    height: auto;
-    padding: 1rem 0;
+    height: 5.5rem;
   }
 
   .properties-N1 .header-title .brand-mark {
@@ -885,6 +884,10 @@ html, body { margin: 0 !important; padding: 0 !important; }
 
 /* ---- 초소형 모바일 (400px 이하: Z Fold5 접힘, S8+ 등) ---- */
 @media (max-width: 400px) {
+  .properties-N1 .header-title a {
+    height: 4.94rem;
+  }
+
   .properties-N1 .header-title .brand-mark {
     width: 11.2rem;
     height: 2.94rem;
