@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Paragon</title>
+  <meta name="description" content="대표) ☎ 1688-4008 | Paragon 분양 홈페이지 | 관심고객 등록 및 분양 상담" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Paragon" />
+  <meta property="og:title" content="Paragon" />
+  <meta property="og:description" content="대표) ☎ 1688-4008 | Paragon 분양 홈페이지 | 관심고객 등록 및 분양 상담" />
+  <meta property="og:url" content="./" />
+  <meta property="og:image" content="./new-assets/og_i1.png" />
+  <meta property="og:image:secure_url" content="./new-assets/og_i1.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Paragon" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Paragon" />
+  <meta name="twitter:description" content="대표) ☎ 1688-4008 | Paragon 분양 홈페이지 | 관심고객 등록 및 분양 상담" />
+  <meta name="twitter:image" content="./new-assets/og_i1.png" />
+  <link rel="icon" type="image/png" href="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <link rel="shortcut icon" type="image/png" href="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <link rel="manifest" href="./site.webmanifest?v=20260502" />
+  <meta name="theme-color" content="#a61013" />
+  <meta name="msapplication-TileColor" content="#a61013" />
+  <meta name="msapplication-TileImage" content="./new-assets/paragon/Favicon_p1.png?v=20260604" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden;
+      background: #040812;
+      overscroll-behavior: none;
+    }
+    body {
+      position: fixed;
+      inset: 0;
+    }
+    .app-frame {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
+      border: 0;
+      display: block;
+      background: #040812;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    id="app-frame"
+    class="app-frame"
+    title="Paragon"
+    src="./static/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EB%B6%80%EB%8F%99%EC%82%B0%20(oLWSmCRkmlw6kEpt)/%EC%B2%AB%ED%8E%98%EC%9D%B4%EC%A7%80%20(AdKpMlw6KePt)/%EC%B2%AB%ED%8E%98%EC%9D%B4%EC%A7%80%20(AdKpMlw6KePt).html"
+    loading="eager"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+  <script>
+    (function () {
+      const blockGuardShortcut = (event) => {
+        const key = String(event.key || "").toLowerCase();
+        const ctrlOrMeta = event.ctrlKey || event.metaKey;
+        const blockedDevToolShortcut =
+          event.key === "F12" ||
+          (ctrlOrMeta && event.shiftKey && ["i", "j", "c"].includes(key));
+
+        if (blockedDevToolShortcut || (ctrlOrMeta && (key === "u" || key === "s"))) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      };
+
+      window.addEventListener("keydown", blockGuardShortcut, { capture: true });
+      document.addEventListener("keydown", blockGuardShortcut, { capture: true });
+
+      const baseSrc = "./static/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%EB%B6%80%EB%8F%99%EC%82%B0%20(oLWSmCRkmlw6kEpt)/%EC%B2%AB%ED%8E%98%EC%9D%B4%EC%A7%80%20(AdKpMlw6KePt)/%EC%B2%AB%ED%8E%98%EC%9D%B4%EC%A7%80%20(AdKpMlw6KePt).html";
+      const frame = document.getElementById("app-frame");
+      if (!frame) return;
+
+      const isConsultationRequest = () => {
+        const params = new URLSearchParams(window.location.search);
+        return window.location.hash === "#consultation" || params.get("consultation") === "1";
+      };
+
+      const clearConsultationState = () => {
+        try {
+          history.replaceState(null, "", window.location.pathname);
+        } catch (_) {}
+      };
+
+      const requestFrameConsultationScroll = () => {
+        try {
+          if (!frame.contentWindow) return;
+          frame.contentWindow.postMessage({ type: "consultation-scroll" }, "*");
+        } catch (_) {}
+      };
+
+      const syncFrameRoute = () => {
+        const consultation = isConsultationRequest();
+        const nextSrc = consultation ? `${baseSrc}?consultation=1` : baseSrc;
+
+        if (frame.getAttribute("src") !== nextSrc) {
+          frame.setAttribute("src", nextSrc);
+        } else if (consultation) {
+          requestFrameConsultationScroll();
+          window.setTimeout(clearConsultationState, 800);
+        }
+      };
+
+      frame.addEventListener("load", () => {
+        if (!isConsultationRequest()) return;
+        requestFrameConsultationScroll();
+        window.setTimeout(clearConsultationState, 800);
+      });
+
+      syncFrameRoute();
+      window.addEventListener("hashchange", syncFrameRoute);
+      window.addEventListener("popstate", syncFrameRoute);
+    })();
+  </script>
+</body>
+</html>
