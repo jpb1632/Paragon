@@ -202,6 +202,8 @@ html, body { margin: 0 !important; padding: 0 !important; }
 .properties-N1 .header-sublist {
   position: absolute;
   top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
   width: 100%;
   min-width: 11.8rem;
