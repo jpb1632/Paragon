@@ -305,7 +305,7 @@
               "../../../../new-assets/paragon/premium_p1%20(3).webp",
               "../../../../new-assets/paragon/premium_p1%20(4).webp",
               "../../../../new-assets/paragon/premium_p1%20(5).webp",
-              "../../../../new-assets/paragon/premium_p1%20(6).webp",
+              "../../../../new-assets/paragon/premium_p2%20(6).webp",
               "../../../../new-assets/paragon/premium_p1%20(7).webp",
             ],
           },
