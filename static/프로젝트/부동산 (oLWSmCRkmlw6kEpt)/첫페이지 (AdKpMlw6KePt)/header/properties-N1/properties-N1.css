@@ -603,6 +603,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
 
 @media (max-width: 992px) {
   .properties-N1 {
+    top: 0 !important;
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -641,11 +642,15 @@ html, body { margin: 0 !important; padding: 0 !important; }
   }
 
   .properties-N1 .header-container {
-    min-height: auto;
+    min-height: 6rem;
+    align-items: center;
     gap: 0;
   }
 
   .properties-N1 .header-left {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
     margin-left: 0;
   }
 
@@ -690,9 +695,13 @@ html, body { margin: 0 !important; padding: 0 !important; }
     width: 13.2rem;
     height: 3.48rem;
     margin-top: 0;
+    transform: translateY(0.24rem);
   }
 
   .properties-N1 .header-title {
+    display: flex;
+    align-items: center;
+    height: 100%;
     margin-left: -0.6rem;
   }
 

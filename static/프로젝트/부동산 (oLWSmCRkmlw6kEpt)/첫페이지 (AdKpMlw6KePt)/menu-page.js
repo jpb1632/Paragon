@@ -127,9 +127,9 @@
           label: "타입",
           hidePrimary: true,
           items: [
-            { key: "72", label: "72", image: "../../../../new-assets/paragon/72.png" },
-            { key: "84a", label: "84A", image: "../../../../new-assets/paragon/84a.png" },
-            { key: "84b", label: "84B", image: "../../../../new-assets/paragon/84b.png" },
+            { key: "72", label: "72", image: "../../../../new-assets/paragon/72.webp" },
+            { key: "84a", label: "84A", image: "../../../../new-assets/paragon/84a.webp" },
+            { key: "84b", label: "84B", image: "../../../../new-assets/paragon/84b.webp" },
           ],
         },
       ],
@@ -233,7 +233,7 @@
         canvasLayout: [
           {
             type: "image",
-            src: "../../../../new-assets/paragon/main2_p1.png",
+            src: "../../../../new-assets/paragon/main2_p1.webp",
           },
         ],
         specs: [
@@ -266,7 +266,7 @@
         canvasLayout: [
           {
             type: "location-card",
-            mainImage: "../../../../new-assets/paragon/Location environment_1_p1.jpg",
+            mainImage: "../../../../new-assets/paragon/Location environment_1_p1.webp",
           },
         ],
         specs: [],
@@ -300,13 +300,13 @@
             columns: 2,
             className: "menupage-premium-grid",
             images: [
-              "../../../../new-assets/paragon/premium_p1%20(1).png",
-              "../../../../new-assets/paragon/premium_p1%20(2).png",
-              "../../../../new-assets/paragon/premium_p1%20(3).png",
-              "../../../../new-assets/paragon/premium_p1%20(4).png",
-              "../../../../new-assets/paragon/premium_p1%20(5).png",
-              "../../../../new-assets/paragon/premium_p1%20(6).png",
-              "../../../../new-assets/paragon/premium_p1%20(7).png",
+              "../../../../new-assets/paragon/premium_p1%20(1).webp",
+              "../../../../new-assets/paragon/premium_p1%20(2).webp",
+              "../../../../new-assets/paragon/premium_p1%20(3).webp",
+              "../../../../new-assets/paragon/premium_p1%20(4).webp",
+              "../../../../new-assets/paragon/premium_p1%20(5).webp",
+              "../../../../new-assets/paragon/premium_p1%20(6).webp",
+              "../../../../new-assets/paragon/premium_p1%20(7).webp",
             ],
           },
         ],
@@ -342,8 +342,8 @@
             type: "stack",
             className: "menupage-community-main menupage-community-stack",
             images: [
-              "../../../../new-assets/paragon/community1_p1.png",
-              "../../../../new-assets/paragon/community2_p1.png",
+              "../../../../new-assets/paragon/community1_p1.webp",
+              "../../../../new-assets/paragon/community2_p1.webp",
             ],
           },
           { type: "gap", size: "community" },
@@ -352,14 +352,14 @@
             columns: 6,
             className: "menupage-community-details-grid menupage-community-details-grid--paragon",
             images: [
-              "../../../../new-assets/paragon/Community_Details_p1%20(1).png",
-              "../../../../new-assets/paragon/Community_Details_p1%20(2).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(3).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(4).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(5).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(6).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(7).png",
-              "../../../../new-assets/paragon/Community_Details_p2%20(8).png",
+              "../../../../new-assets/paragon/Community_Details_p1%20(1).webp",
+              "../../../../new-assets/paragon/Community_Details_p1%20(2).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(3).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(4).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(5).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(6).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(7).webp",
+              "../../../../new-assets/paragon/Community_Details_p2%20(8).webp",
             ],
           },
         ],
@@ -373,7 +373,7 @@
         copySub: "널찍한 동간 거리 속 넉넉한 조경 공간과 청정 수변 라이프를 단지 안마당처럼 누리는 명품 웰빙 대단지",
         image: "",
         canvasLayout: [
-          { type: "image", src: "../../../../new-assets/paragon/complex arrangement_p1.jpg" },
+          { type: "image", src: "../../../../new-assets/paragon/complex arrangement_p1.webp" },
         ],
         notes: [
           "본 지면상의 단지배치도 및 CG 이미지는 소비자의 이해를 돕기 위해 제작한 것으로 실제와 차이가 있을 수 있으며, 향후 개발 계획 및 인·허가에 따라 변경될 수 있습니다.",
@@ -623,15 +623,25 @@
     img.src = src;
     img.alt = imageAlt;
     img.decoding = "async";
-    img.loading = "eager";
+    img.loading = "lazy";
     img.addEventListener("error", function onError() {
-      if (img.dataset.fallbackTried === "1") {
+      if (img.dataset.fallbackTried === "2") {
         img.removeEventListener("error", onError);
         img.remove();
         return;
       }
-      if (/\.png$/i.test(src)) {
+      if (/\.webp$/i.test(img.src)) {
         img.dataset.fallbackTried = "1";
+        img.src = img.src.replace(/\.webp$/i, ".png");
+        return;
+      }
+      if (img.dataset.fallbackTried === "1" && /\.png$/i.test(img.src)) {
+        img.dataset.fallbackTried = "2";
+        img.src = img.src.replace(/\.png$/i, ".jpg");
+        return;
+      }
+      if (/\.png$/i.test(src)) {
+        img.dataset.fallbackTried = "2";
         img.src = src.replace(/\.png$/i, ".jpg");
         return;
       }
