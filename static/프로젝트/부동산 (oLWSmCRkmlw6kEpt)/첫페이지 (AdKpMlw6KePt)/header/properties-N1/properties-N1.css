@@ -204,6 +204,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
   top: 100%;
   overflow: hidden;
   width: 100%;
+  min-width: 11.8rem;
   min-height: 0;
   opacity: 0;
   transition: opacity 0.3s;
@@ -241,7 +242,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
 }
 
 .properties-N1 .header-sublink:hover {
-  background: var(--text-color1);
+  background: #a78232;
   color: var(--white);
 }
 
@@ -285,6 +286,16 @@ html, body { margin: 0 !important; padding: 0 !important; }
   letter-spacing: 0;
   position: relative;
   top: 1px;
+  background: #a78232;
+  border-color: #a78232;
+  color: #fff;
+}
+
+.properties-N1 .header-utils .call-inline:hover,
+.properties-N1 .header-utils .call-inline:focus-visible {
+  background: #8f6f2b;
+  border-color: #8f6f2b;
+  color: #fff;
 }
 
 .properties-N1 .header-utils .call-inline .call-icon {
@@ -776,6 +787,9 @@ html, body { margin: 0 !important; padding: 0 !important; }
     font-size: 1.55rem;
     white-space: nowrap;
     top: 1px;
+    background: #a78232;
+    border-color: #a78232;
+    color: #fff;
   }
 
   .properties-N1 .header-utils .call-inline .call-icon {

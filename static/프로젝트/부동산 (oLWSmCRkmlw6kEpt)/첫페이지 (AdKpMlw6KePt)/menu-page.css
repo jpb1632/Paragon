@@ -103,12 +103,12 @@ body.menu-page-view {
 }
 
 .menupage-tab:hover {
-  color: #001eb9;
+  color: #a78232;
 }
 
 .menupage-tab.is-active {
-  color: #001eb9;
-  border-color: #001eb9;
+  color: #a78232;
+  border-color: #a78232;
   font-weight: 800;
 }
 
@@ -359,13 +359,13 @@ body.menu-page-view {
 }
 
 .menupage-variant-tab:hover {
-  border-color: #102f5b;
-  color: #102f5b;
+  border-color: #a78232;
+  color: #a78232;
 }
 
 .menupage-variant-tab.is-active {
-  background: #102f5b;
-  border-color: #102f5b;
+  background: #a78232;
+  border-color: #a78232;
   color: #fff;
 }
 
@@ -837,14 +837,14 @@ body.menu-page-view {
   }
 
   .menu-page-view .properties-N1 .header-utils .call-inline {
-    background: #fff !important;
-    color: #000 !important;
-    border: 0 !important;
+    background: #a78232 !important;
+    color: #fff !important;
+    border: 1px solid #a78232 !important;
   }
 
   .menu-page-view .properties-N1 .header-utils .call-inline .call-icon,
   .menu-page-view .properties-N1 .header-utils .call-inline .call-text {
-    color: #000 !important;
+    color: #fff !important;
   }
 
   .menu-page-view .properties-N1 .header-gnbitem.menu-current .header-gnblink span {
@@ -889,7 +889,7 @@ body.menu-page-view {
 
   .menu-page-view .properties-N1 .header-sublink:hover,
   .menu-page-view .properties-N1 .header-sublink:active {
-    background: #000 !important;
+    background: #a78232 !important;
     color: #fff !important;
   }
 
@@ -981,9 +981,9 @@ body.menu-page-view {
   }
 
   .menu-page-view .properties-N1 .header-utils .call-inline {
-    background: #fff !important;
-    color: #000 !important;
-    border: 0 !important;
+    background: #a78232 !important;
+    color: #fff !important;
+    border: 1px solid #a78232 !important;
     flex-shrink: 0;
     position: relative;
     z-index: 120;
@@ -992,7 +992,7 @@ body.menu-page-view {
 
   .menu-page-view .properties-N1 .header-utils .call-inline .call-icon,
   .menu-page-view .properties-N1 .header-utils .call-inline .call-text {
-    color: #000 !important;
+    color: #fff !important;
   }
 
   .menu-page-view .properties-N1 .btn-momenu {
