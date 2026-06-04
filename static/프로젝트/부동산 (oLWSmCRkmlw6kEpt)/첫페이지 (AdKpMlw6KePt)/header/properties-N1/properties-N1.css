@@ -640,9 +640,8 @@ html, body { margin: 0 !important; padding: 0 !important; }
   }
 
   .properties-N1 .header-container {
-    min-height: 6rem;
+    min-height: auto;
     gap: 0;
-    padding: 1rem 0;
   }
 
   .properties-N1 .header-left {
@@ -680,7 +679,8 @@ html, body { margin: 0 !important; padding: 0 !important; }
 
   .properties-N1 .header-title a {
     width: auto;
-    height: 3.12rem;
+    height: auto;
+    padding: 0.8rem 0;
   }
 
   .properties-N1 .header-title .brand-mark {
