@@ -453,6 +453,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
 
 .properties-N1 .fullmenu-title {
   margin-bottom: 0;
+  margin-left: max(0rem, calc(10% - 6rem));
 }
 
 .properties-N1 .fullmenu-title a {
@@ -465,6 +466,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
   width: auto;
   height: 100%;
   object-fit: contain;
+  transform: translateX(-4.3rem);
 }
 
 .properties-N1 .fullmenu-member {
@@ -535,6 +537,10 @@ html, body { margin: 0 !important; padding: 0 !important; }
 
 .properties-N1 .fullmenu-gnblink.on::after {
   width: 18rem;
+}
+
+.properties-N1 .fullmenu-gnbitem.menu-current > .fullmenu-gnblink span {
+  color: #a78232;
 }
 
 .properties-N1 .fullmenu-sublist {

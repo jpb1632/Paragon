@@ -397,13 +397,14 @@ html, body { margin: 0 !important; padding: 0 !important
 .properties-N1 .fullmenu-title img {
   width: auto;
   height: 100%;
-  object-fit: contain
+  object-fit: contain;
+  transform: translateX(-4.3rem);
 }
 .properties-N1 .fullmenu-member {
   display: flex;
   position: absolute;
   top: 0;
-  right: 0
+  right: 0;
 }
 .properties-N1 .fullmenu-member li {
   position: relative
@@ -472,7 +473,10 @@ html, body { margin: 0 !important; padding: 0 !important
   transition: 0.2s
 }
 .properties-N1 .fullmenu-gnblink.on::after {
-  width: 18rem
+  width: 18rem;
+}
+.properties-N1 .fullmenu-gnbitem.menu-current > .fullmenu-gnblink span {
+  color: #a78232;
 }
 .properties-N1 .fullmenu-sublist {
   padding-top: 4rem
@@ -2283,7 +2287,7 @@ to {
   margin-left: 0.6rem
 }
 .properties-N5 .swiper-pagination-bullet-active {
-  background: #a00e15
+  background: #a78232
 }
 .properties-N5 .n5-lightbox {
   position: fixed;

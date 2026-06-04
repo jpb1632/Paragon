@@ -101,7 +101,7 @@
         { key: "siteplan", label: "단지배치도" },
         { key: "unitplan", label: "동호수배치도" },
         { key: "community", label: "커뮤니티" },
-        { key: "concierge", label: "컨시어지" },
+        { key: "specialized", label: "특화설계" },
       ],
     },
     type: {
@@ -119,6 +119,50 @@
     },
   };
 
+  const TAB_ALIASES = {
+    complex: {
+      concierge: "specialized",
+    },
+  };
+
+  function normalizeTabKey(group, tab) {
+    return (TAB_ALIASES[group] && TAB_ALIASES[group][tab]) || tab;
+  }
+
+  function fixSpecializedMenuLabels() {
+    document.querySelectorAll("a").forEach((link) => {
+      const href = link.getAttribute("href") || "";
+      if (href.includes("tab=concierge")) {
+        link.setAttribute("href", href.replace("tab=concierge", "tab=specialized"));
+      }
+
+      link.querySelectorAll("span").forEach((span) => {
+        if (span.textContent.trim() === "컨시어지") {
+          span.textContent = "특화설계";
+        }
+      });
+    });
+  }
+
+  function watchSpecializedMenuLabels() {
+    fixSpecializedMenuLabels();
+    window.setTimeout(fixSpecializedMenuLabels, 80);
+    window.setTimeout(fixSpecializedMenuLabels, 300);
+    window.setTimeout(fixSpecializedMenuLabels, 1000);
+
+    if (!window.MutationObserver || !document.body) return;
+    let pending = false;
+    const observer = new MutationObserver(() => {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(() => {
+        pending = false;
+        fixSpecializedMenuLabels();
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+
   const TYPE_VARIANTS = {
     type: {
       groups: [
@@ -127,9 +171,9 @@
           label: "타입",
           hidePrimary: true,
           items: [
-            { key: "72", label: "72", image: "../../../../new-assets/paragon/72.webp" },
-            { key: "84a", label: "84A", image: "../../../../new-assets/paragon/84a.webp" },
-            { key: "84b", label: "84B", image: "../../../../new-assets/paragon/84b.webp" },
+            { key: "72", label: "72", image: "../../../../new-assets/paragon/72_m_p1.webp" },
+            { key: "84a", label: "84A", image: "../../../../new-assets/paragon/84a_m_p1.webp" },
+            { key: "84b", label: "84B", image: "../../../../new-assets/paragon/84b_m_p1.webp" },
           ],
         },
       ],
@@ -142,36 +186,51 @@
           hidePrimary: true,
           items: [
             {
-              key: "living",
-              label: "LIVING ROOM",
-              images: [
-                "../../../../new-assets/menu/living_room_1.webp",
-                "../../../../new-assets/menu/living_room_2.webp",
+              key: "72",
+              label: "72",
+              canvasLayout: [
+                { type: "image", src: "../../../../new-assets/paragon/72_1.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/72_2.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/72_3.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/72_4.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/72_5.webp", className: "menupage-interior-single" },
+                {
+                  type: "row",
+                  columns: 3,
+                  className: "menupage-interior-triplet",
+                  images: [
+                    "../../../../new-assets/paragon/72_6.webp",
+                    "../../../../new-assets/paragon/72_7.webp",
+                    "../../../../new-assets/paragon/72_8.webp",
+                  ],
+                },
               ],
             },
             {
-              key: "bedroom",
-              label: "BEDROOM",
-              images: [
-                "../../../../new-assets/menu/bedroom_1.webp",
-                "../../../../new-assets/menu/bedroom_2.webp",
+              key: "84a",
+              label: "84A",
+              canvasLayout: [
+                { type: "image", src: "../../../../new-assets/paragon/84a_1.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84a_2.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84a_3.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84a_4.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84a_5.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84a_6.webp", className: "menupage-interior-single" },
+                {
+                  type: "row",
+                  columns: 2,
+                  className: "menupage-interior-pair",
+                  images: [
+                    "../../../../new-assets/paragon/84a_7.webp",
+                    "../../../../new-assets/paragon/84a_8.webp",
+                  ],
+                },
               ],
             },
             {
-              key: "dining",
-              label: "DINING ROOM",
-              images: [
-                "../../../../new-assets/menu/dining_room_1.webp",
-                "../../../../new-assets/menu/dining_room_2.webp",
-              ],
-            },
-            {
-              key: "bathroom",
-              label: "BATHROOM",
-              images: [
-                "../../../../new-assets/menu/bathroom_1.webp",
-                "../../../../new-assets/menu/bathroom_2.webp",
-              ],
+              key: "84b",
+              label: "84B",
+              canvasLayout: [],
             },
           ],
         },
@@ -226,7 +285,7 @@
     business: {
       overview: {
         title: "Paragon 사업개요",
-        subtitle: "새로운 중심의 Paragon",
+        subtitle: "가격에 놀라고 · 입지에 반하다",
         copy: "생활·교통·문화 인프라를 누리는 프리미엄 중심 입지",
         copySub: "",
         image: "",
@@ -237,19 +296,8 @@
           },
         ],
         specs: [
-          [
-            "사업명칭",
-            "Paragon 분양 프로젝트",
-            "대지위치",
-            "상세 주소 추후 입력",
-          ],
-          [
-            "건축규모",
-            "지하 2층 ~ 지상 47층 3개동",
-            "대지면적",
-            "9,076.90m² / 연면적 103,703.91m²",
-          ],
-          ["세대수", "총 556세대 / 아파트 400세대, 오피스텔 156실", "", ""],
+          ["사업명", "회천중앙역 파라곤", "대지위치", "양주 회천신도시 A10-1BL"],
+          ["건축규모", "지하2층~지상29층, 8개동", "세대수", "총 845세대 (72㎡ / 84㎡ A,B)"],
         ],
         notes: [
           "본 홍보물에 사용된 CG 및 일러스트는 소비자의 이해를 돕기 위한 것으로 실제와 다를 수 있습니다.",
@@ -259,9 +307,9 @@
       },
       location: {
         title: "Paragon 입지환경",
-        subtitle: "새로운 프리미엄 라이프",
-        copy: "1호선 회천중앙역(예정)&GTX-C(예정) 연계 및 3번국도 대체우회·수도권제2순환도로로 서울 접근성 우수!",
-        copySub: "양주 회천 新주거 중심축! 역·학·슬세권 완성의 결정판! 회천중앙역 파라곤",
+        subtitle: "회천신도시 최중심, 파라곤으로 빛나다!",
+        copy: "역·학·슬세권 완성의 결정판 회천중앙역 파라곤",
+        copySub: "",
         image: "",
         canvasLayout: [
           {
@@ -290,8 +338,8 @@
       },
       premium: {
         title: "Paragon 프리미엄",
-        subtitle: "품격 있는 주거 브랜드 Paragon",
-        copy: "초고층, 트리플 역세권, 최중심 인프라, 고품격 커뮤니티까지!",
+        subtitle: "더 가깝게! 더 빛나게!",
+        copy: "회천중앙역 파라곤에서 만나는 프리미엄8",
         copySub: "",
         image: "",
         canvasLayout: [
@@ -333,9 +381,9 @@
         image: "../resources/images/complex guide1.jpg",
       },
       community: {
-        subtitle: "커뮤니티",
-        copy: "골프장·피트니스·GX룸부터 북카페·키즈룸·단지 내 어린이집까지 원스톱 완비",
-        copySub: "건강한 웰니스 라이프와 안심 보육을 한 번에 누리는 파라곤만의 차별화된 명품 커뮤니티",
+        subtitle: "골프·피트니스부터 북카페·어린이집까지",
+        copy: "단지 안에서 다 누리는 원스톱 고품격 인프라!",
+        copySub: "",
         image: "",
         canvasLayout: [
           {
@@ -368,9 +416,9 @@
         ],
       },
       siteplan: {
-        subtitle: "단지배치도",
-        copy: "총 845세대 전세대 남향 위주 배치와 덕계천 수변공원으로 곧바로 연결되는 출입구",
-        copySub: "널찍한 동간 거리 속 넉넉한 조경 공간과 청정 수변 라이프를 단지 안마당처럼 누리는 명품 웰빙 대단지",
+        subtitle: "전세대 남향 위주 배치와 덕계천 수변공원",
+        copy: "널찍한 동간거리! 넉넉한 조경공간!",
+        copySub: "",
         image: "",
         canvasLayout: [
           { type: "image", src: "../../../../new-assets/paragon/complex arrangement_p1.webp" },
@@ -380,33 +428,27 @@
         ],
       },
       unitplan: {
-        subtitle: "내일의 심장부를 사는",
-        copy: "도심 접근성을 높인 프리미엄 라이프",
+        subtitle: "총 845세대 선호도 높은 중소형 단지",
+        copy: "파라곤이 선보이는 프리미엄 주거 트렌드!",
         copySub: "",
         image: "",
         canvasLayout: [
-          { type: "image", src: "../../../../new-assets/menu/number arrangement_i1.webp" },
+          { type: "image", src: "../../../../new-assets/paragon/number arrangement_p1.webp" },
         ],
         notes: [
           "본 지면 상의 동호 배치도 등은 소비자의 이해를 돕기 위한 이미지 컷으로 실제 시공 시 다소 차이가 있을 수 있으며, 향후 개발 계획 및 인·허가에 따라 변경될 수 있습니다.",
         ],
       },
-      concierge: {
-        subtitle: "간편하게 누리는 Paragon 라이프",
-        copy: "사용자 편의를 생각한 생활 솔루션",
+      specialized: {
+        subtitle: "6M 광폭거실과 현관 앞 공용창고",
+        copy: "공간을 넓히고 주거 품격을 더하다!",
         copySub: "",
         image: "",
         canvasLayout: [
-          { type: "image", src: "../../../../new-assets/menu/concierge_i1%20(1).png", className: "menupage-concierge-section" },
-          { type: "gap", size: "concierge" },
-          { type: "image", src: "../../../../new-assets/menu/concierge_i1%20(2).png", className: "menupage-concierge-section" },
-          { type: "gap", size: "concierge" },
-          { type: "image", src: "../../../../new-assets/menu/concierge_i1%20(3).png", className: "menupage-concierge-section" },
-          { type: "gap", size: "concierge" },
-          { type: "image", src: "../../../../new-assets/menu/concierge_i1%20(4).png", className: "menupage-concierge-section" },
+          { type: "image", src: "../../../../new-assets/paragon/Specialized design_p1.webp", className: "menupage-specialized-section" },
         ],
         notes: [
-          "상기 이미지는 서비스 예시 이미지이며, 실제 제공 서비스와 일부 다를 수 있습니다. 주거서비스는 전문 위탁업체를 통해 운영되며, 입주민 전용 APP으로 신청하는 유상 서비스입니다. 제공 서비스는 운영업체, 현장 여건, 이용률, 입주민 선호도 등에 따라 변경될 수 있습니다. 시공사는 준공 후 1년간 APP 플랫폼 구축 및 기본 유지 비용을 부담하며, 해당 계약 기간 중 입주자는 위탁업체 변경을 임의로 요구할 수 없습니다. 계약 종료 후 서비스 연장 또는 업체 재선정은 입주자대표회의를 통해 결정되며, 이후 발생하는 APP 유지보수비 등 유지 비용은 입주자가 부담합니다. 비대면진료서비스는 입주민 전용 APP을 통해 제공되며, 위탁계약 3년간 별도 유지보수 비용 부담 없이 이용할 수 있습니다. 계약 기간 중 입주자는 위탁업체 변경을 임의로 요구할 수 없습니다. 견본주택 및 홍보물의 서비스 내용은 이해를 돕기 위한 예시이며, 실제 운영 시 변경될 수 있습니다.",
+          "본 이미지는 소비자의 이해를 돕기 위한 이미지로 실제 시공 시 다소 차이가 있을 수 있으며, 인·허가 및 현장 여건에 따라 변경될 수 있습니다.",
         ],
       },
       hsystem: {
@@ -437,8 +479,8 @@
     type: {
       type: {
         title: "Paragon",
-        subtitle: "취향을 담은 혁신 평면에",
-        copy: "트렌디한 라이프 스타일을 더하다!",
+        subtitle: "선호도 높은 72㎡·84㎡A·B 맞춤 평면",
+        copy: "취향 따라 선택하는 완벽한 공간 구조!",
         copySub: "",
         image: "",
         specs: [],
@@ -448,8 +490,8 @@
       },
       interior: {
         title: "Paragon",
-        subtitle: "공간에 대한 깊이와 이해로 완성된 미학",
-        copy: "Paragon만의 고품격 인테리어를 경험해 보세요",
+        subtitle: "6M 광폭거실이 주는 압도적인 개방감",
+        copy: "명품 주거 파라곤의 감각적인 공간 미학!",
         copySub: "",
         image: "",
         specs: [],
@@ -537,7 +579,7 @@
   function getStateFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const group = params.get("group");
-    const tab = params.get("tab");
+    const tab = normalizeTabKey(group, params.get("tab"));
     const variant = params.get("variant");
 
     if (!group || !MENU_CONFIG[group]) {
@@ -599,7 +641,7 @@
           group === "type" && targetVariant
             ? `&variant=${encodeURIComponent(targetVariant)}`
             : "";
-        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
+        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260605g&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
       })
       .join("");
   }
@@ -962,7 +1004,9 @@
   function initInteriorImageReveal(canvasEl) {
     if (!canvasEl || !canvasEl.classList.contains("is-interior-layout")) return;
 
-    const images = Array.from(canvasEl.querySelectorAll(".menupage-image-stack img"));
+    const images = Array.from(
+      canvasEl.querySelectorAll(".menupage-image-stack img, .menupage-image-layout img")
+    );
     if (!images.length) return;
 
     images.forEach((img, index) => {
@@ -1493,6 +1537,7 @@
   var NAV_FADE_MS = 160;
 
   function navigate(group, tab, variant) {
+    tab = normalizeTabKey(group, tab);
     var url = new URL(window.location.href);
     url.searchParams.set("group", group);
     url.searchParams.set("tab", tab);
@@ -1522,7 +1567,7 @@
       e.preventDefault();
       var url = new URL(link.href, window.location.href);
       var g = url.searchParams.get("group") || "business";
-      var t = url.searchParams.get("tab") || "overview";
+      var t = normalizeTabKey(g, url.searchParams.get("tab") || "overview");
       var v = url.searchParams.get("variant") || "";
       if (link.closest(".properties-N1")) {
         closeMenuNavigationOverlay();
@@ -1543,6 +1588,7 @@
 
   function initMenuPage() {
     initBasicContentGuard();
+    watchSpecializedMenuLabels();
 
     const { group, tab, variant } = getStateFromUrl();
     runPage(group, tab, variant);

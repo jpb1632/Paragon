@@ -5,6 +5,40 @@
     return Array.prototype.slice.call(list || []);
   }
 
+  function fixSpecializedMenuLabels() {
+    toArray(document.querySelectorAll("a")).forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (href.indexOf("tab=concierge") !== -1) {
+        link.setAttribute("href", href.replace("tab=concierge", "tab=specialized"));
+      }
+
+      toArray(link.querySelectorAll("span")).forEach(function (span) {
+        if (span.textContent.trim() === "컨시어지") {
+          span.textContent = "특화설계";
+        }
+      });
+    });
+  }
+
+  function watchSpecializedMenuLabels() {
+    fixSpecializedMenuLabels();
+    window.setTimeout(fixSpecializedMenuLabels, 80);
+    window.setTimeout(fixSpecializedMenuLabels, 300);
+    window.setTimeout(fixSpecializedMenuLabels, 1000);
+
+    if (!window.MutationObserver || !document.body) return;
+    var pending = false;
+    var observer = new MutationObserver(function () {
+      if (pending) return;
+      pending = true;
+      window.requestAnimationFrame(function () {
+        pending = false;
+        fixSpecializedMenuLabels();
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+
   function initUnitTypes() {
     var root = document.querySelector("[data-unit-types]");
     if (!root || root.dataset.paragonReady === "true") return;
@@ -217,8 +251,12 @@
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initUnitTypes);
+    document.addEventListener("DOMContentLoaded", function () {
+      watchSpecializedMenuLabels();
+      initUnitTypes();
+    });
   } else {
+    watchSpecializedMenuLabels();
     initUnitTypes();
   }
 })();
