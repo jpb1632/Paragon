@@ -4374,8 +4374,8 @@ body.unit-types-lightbox-open {
   top: 50%;
   width: 0.46rem;
   height: 0.84rem;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  border-right: 2px solid #f5cf5a;
+  border-bottom: 2px solid #f5cf5a;
   transform: translateY(-58%) rotate(45deg);
   font-family: inherit !important;
   font-size: 0
@@ -4870,6 +4870,16 @@ body.unit-types-lightbox-open {
   .properties-N9 .n9-scroll-anchor {
     top: -9rem
   }
+}
+.properties-N9 .form-btn .btnset-primary {
+  background: #f5cf5a !important;
+  color: #183355 !important;
+  border-color: #f5cf5a !important;
+}
+.properties-N9 .form-btn .btnset-primary:hover,
+.properties-N9 .form-btn .btnset-primary:active {
+  background: #ffdf58 !important;
+  border-color: #ffdf58 !important;
 }
 /* properties-N3 */
 /* ==========================================
