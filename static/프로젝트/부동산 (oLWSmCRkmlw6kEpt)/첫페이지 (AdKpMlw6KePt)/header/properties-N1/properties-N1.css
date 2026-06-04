@@ -95,8 +95,9 @@ html, body { margin: 0 !important; padding: 0 !important; }
 }
 
 .properties-N1 .header-title a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   height: 4.58rem;
 }
 
@@ -104,7 +105,7 @@ html, body { margin: 0 !important; padding: 0 !important; }
   display: block;
   width: 17.42rem;
   height: 4.58rem;
-  margin-top: 0.72rem;
+  margin-top: 0;
   background: url("../../../../../../new-assets/paragon/logo_on_p1.png") left center / contain no-repeat;
   font-size: 0;
   line-height: 0;
@@ -678,15 +679,18 @@ html, body { margin: 0 !important; padding: 0 !important; }
   }
 
   .properties-N1 .header-title a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     height: auto;
-    padding: 0.8rem 0;
+    padding: 1rem 0;
   }
 
   .properties-N1 .header-title .brand-mark {
     width: 13.2rem;
     height: 3.48rem;
-    margin-top: 0.6rem;
+    margin-top: 0;
   }
 
   .properties-N1 .header-title {
