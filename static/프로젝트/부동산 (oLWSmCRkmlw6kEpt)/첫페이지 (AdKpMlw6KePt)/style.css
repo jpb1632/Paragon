@@ -1126,7 +1126,7 @@ html.content-guard-on *:not(input):not(textarea):not([contenteditable="true"]) {
   letter-spacing: 0.04em;
   text-align: center;
   white-space: normal;
-  color: #c9a961;
+  color: #d9b357;
   text-shadow:
     0 0.08rem 0 rgba(97, 12, 16, 0.34),
     0 0 0.95rem rgba(232, 184, 75, 0.3),
@@ -1213,7 +1213,7 @@ html.content-guard-on *:not(input):not(textarea):not([contenteditable="true"]) {
   paint-order: stroke fill
 }
 .properties-N4.hero-theme-gold .hero-copy-subtitle {
-  color: #c9a961;
+  color: #d9b357;
   background: linear-gradient(135deg, #c3191d 0%, #a61013 55%, #860d10 100%);
   border-color: rgba(255, 208, 92, 0.96);
   box-shadow:
@@ -1297,7 +1297,7 @@ html.content-guard-on *:not(input):not(textarea):not([contenteditable="true"]) {
   color: #1d3557
 }
 .properties-N4.hero-theme-bright .hero-copy-subtitle {
-  color: #c9a961;
+  color: #d9b357;
   background: linear-gradient(135deg, #c3191d 0%, #a61013 55%, #860d10 100%);
   border-color: rgba(255, 208, 92, 0.96);
   box-shadow:
@@ -1614,7 +1614,7 @@ to {
     paint-order: stroke fill
  }
 .properties-N4.hero-theme-bright .hero-copy-subtitle {
-    color: #c9a961;
+    color: #d9b357;
     background: linear-gradient(135deg, #c3191d 0%, #a61013 55%, #860d10 100%);
     border-color: rgba(255, 208, 92, 0.96);
     box-shadow:
@@ -4369,7 +4369,7 @@ body.unit-types-lightbox-open {
   transform: translateY(0);
 }
 .properties-N9 .checkset.checkset-fill .checkset-input:checked+.checkset-label::before {
-  background: #c9a961 !important;
+  background: #d9b357 !important;
 }
 .properties-N9 .checkset.checkset-fill .checkset-input:checked+.checkset-label::after {
   content: "";
@@ -4482,11 +4482,11 @@ body.unit-types-lightbox-open {
     #8a6520   0deg,
     #8a6520  78deg,
     #b87d28  96deg,
-    #c9a961 112deg,
+    #d9b357 112deg,
     #f8e08a 124deg,
     #fffcf0 132deg,
     #f8e08a 140deg,
-    #c9a961 156deg,
+    #d9b357 156deg,
     #b87d28 174deg,
     #8a6520 192deg,
     #8a6520 360deg
@@ -4853,11 +4853,11 @@ body.unit-types-lightbox-open {
       #8a6520   0deg,
       #8a6520  78deg,
       #b87d28  96deg,
-      #c9a961 112deg,
+      #d9b357 112deg,
       #f8e08a 124deg,
       #fffcf0 132deg,
       #f8e08a 140deg,
-      #c9a961 156deg,
+      #d9b357 156deg,
       #b87d28 174deg,
       #8a6520 192deg,
       #8a6520 360deg
@@ -4875,9 +4875,9 @@ body.unit-types-lightbox-open {
   }
 }
 .properties-N9 .form-btn .btnset-primary {
-  background: #c9a961 !important;
+  background: #d9b357 !important;
   color: #183355 !important;
-  border-color: #c9a961 !important;
+  border-color: #d9b357 !important;
 }
 .properties-N9 .form-btn .btnset-primary:hover,
 .properties-N9 .form-btn .btnset-primary:active {
