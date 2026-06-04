@@ -2009,10 +2009,10 @@ to {
 }
 @keyframes n5SpecialImageDrift {
   0%, 100% {
-    transform: scale(1.012) translateX(0);
+    transform: scale(1.012);
   }
   48% {
-    transform: scale(1.026) translateX(-0.55%);
+    transform: scale(1.026);
   }
 }
 .properties-N5 .n5-giveaway-banner {
