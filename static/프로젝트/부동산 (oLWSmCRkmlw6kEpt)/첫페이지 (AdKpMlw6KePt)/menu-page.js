@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const SITE_NAME = "Paragon";
   const FIXED_CONTENT_TITLE = "Paragon";
   const CONTENT_TITLE_LOGO_SRC = "../../../../new-assets/paragon/logo_on_p1.png";
@@ -230,7 +230,23 @@
             {
               key: "84b",
               label: "84B",
-              canvasLayout: [],
+              canvasLayout: [
+                { type: "image", src: "../../../../new-assets/paragon/84b_1.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84b_2.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84b_3.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84b_4.webp", className: "menupage-interior-single" },
+                { type: "image", src: "../../../../new-assets/paragon/84b_5.webp", className: "menupage-interior-single" },
+                {
+                  type: "row",
+                  columns: 3,
+                  className: "menupage-interior-triplet",
+                  images: [
+                    "../../../../new-assets/paragon/84b_6.webp",
+                    "../../../../new-assets/paragon/84b_7.webp",
+                    "../../../../new-assets/paragon/84b_8.webp",
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -641,7 +657,7 @@
           group === "type" && targetVariant
             ? `&variant=${encodeURIComponent(targetVariant)}`
             : "";
-        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260605g&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
+        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260605i&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
       })
       .join("");
   }
