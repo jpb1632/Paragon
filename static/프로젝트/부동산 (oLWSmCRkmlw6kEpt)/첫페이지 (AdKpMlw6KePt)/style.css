@@ -1941,6 +1941,25 @@ to {
   width: 100%;
   margin: 0;
 }
+.properties-N5 .n5-call-inquiry-banner {
+  cursor: pointer;
+  text-decoration: none;
+  background: #15100a;
+}
+.properties-N5 .n5-call-inquiry-banner img {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+.properties-N5 .n5-call-inquiry-banner:focus-visible {
+  outline: 0.3rem solid rgba(167, 130, 50, 0.5);
+  outline-offset: 0.35rem;
+}
+.properties-N5 .n5-call-inquiry-banner:hover img,
+.properties-N5 .n5-call-inquiry-banner:focus-visible img {
+  filter: brightness(1.04);
+  transform: scale(1.012);
+}
 .properties-N5 .n5-promo-video-wrap {
   display: none;
 }
