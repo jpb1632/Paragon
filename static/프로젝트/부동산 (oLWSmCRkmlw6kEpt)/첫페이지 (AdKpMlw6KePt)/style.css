@@ -1941,6 +1941,116 @@ to {
   width: 100%;
   margin: 0;
 }
+.properties-N5 .n5-promo-video-wrap {
+  display: none;
+}
+.properties-N5 .n5-promo-video-card {
+  overflow: hidden;
+  width: min(100%, 42rem);
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 1.2rem;
+  background: #080808;
+  box-shadow:
+    0 0.9rem 2.4rem rgba(34, 22, 8, 0.16),
+    0 0 0 1px rgba(167, 130, 50, 0.2);
+}
+.properties-N5 .n5-promo-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #080808;
+}
+.properties-N5 .n5-promo-reserve-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 6.4rem;
+  padding: 0 2.4rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 232, 171, 0.62);
+  background:
+    linear-gradient(135deg, #7f5c1e 0%, #a78232 32%, #d7b86a 52%, #a78232 74%, #6f501d 100%);
+  color: #fffdf6;
+  font-size: 2.66rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  text-decoration: none;
+  text-shadow: 0 0.1rem 0.35rem rgba(58, 38, 9, 0.32);
+  isolation: isolate;
+  box-shadow:
+    0 0.9rem 2.2rem rgba(107, 76, 23, 0.24),
+    0 0.25rem 0.7rem rgba(255, 236, 180, 0.22) inset;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.properties-N5 .n5-promo-reserve-btn-text {
+  display: inline-block;
+  transform-origin: center;
+  animation: n5PromoTextPulse 2.35s ease-in-out infinite;
+  will-change: transform;
+}
+.properties-N5 .n5-promo-reserve-btn::before {
+  content: "";
+  position: absolute;
+  inset: -35% -70%;
+  z-index: -1;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 38%, rgba(255, 248, 214, 0.42) 48%, rgba(255, 255, 255, 0) 58%);
+  transform: translateX(-48%) rotate(6deg);
+  animation: n5PromoGoldSheen 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+.properties-N5 .n5-promo-reserve-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0.22rem;
+  border: 1px solid rgba(255, 243, 205, 0.34);
+  border-radius: calc(1.2rem - 0.22rem);
+  pointer-events: none;
+}
+.properties-N5 .n5-promo-reserve-btn:focus-visible,
+.properties-N5 .n5-promo-reserve-btn:hover {
+  background:
+    linear-gradient(135deg, #8d6722 0%, #bc943b 34%, #efd688 54%, #b78d36 75%, #7d5a1f 100%);
+  box-shadow:
+    0 1.2rem 2.7rem rgba(107, 76, 23, 0.3),
+    0 0 0 0.35rem rgba(167, 130, 50, 0.13),
+    0 0.28rem 0.8rem rgba(255, 240, 196, 0.28) inset;
+  transform: translateY(-2px);
+}
+.properties-N5 .n5-promo-reserve-btn:active {
+  background:
+    linear-gradient(135deg, #6d4d18 0%, #9b7428 44%, #c7a04a 100%);
+  transform: translateY(0);
+}
+@keyframes n5PromoGoldSheen {
+  0%, 44% {
+    transform: translateX(-58%) rotate(6deg);
+    opacity: 0;
+  }
+  56% {
+    opacity: 0.85;
+  }
+  78%, 100% {
+    transform: translateX(58%) rotate(6deg);
+    opacity: 0;
+  }
+}
+@keyframes n5PromoTextPulse {
+  0%, 58%, 100% {
+    transform: scale(1);
+  }
+  72% {
+    transform: scale(1.085);
+  }
+  86% {
+    transform: scale(1.015);
+  }
+}
 .properties-N5 .n5-special-banner {
   isolation: isolate;
   background: #271a06;
@@ -2372,6 +2482,11 @@ to {
   .properties-N5 .n5-lead-banner-wrap {
     width: 100%;
   }
+  .properties-N5 .n5-promo-video-wrap {
+    display: grid;
+    justify-items: center;
+    gap: 1.2rem;
+  }
   .properties-N5 .n5-special-banner-wrap {
     width: calc(100% + 3.2rem);
     margin-left: -1.6rem;
@@ -2384,6 +2499,9 @@ to {
   .properties-N5 .n5-special-banner img {
     animation: none;
     transform: none;
+  }
+  .properties-N5 .n5-promo-reserve-btn {
+    width: min(100%, 42rem);
   }
   .properties-N5 .n5-mobile-top-stack {
     display: block;
@@ -2485,6 +2603,8 @@ to {
   }
   .properties-N5 .n5-special-banner img,
   .properties-N5 .n5-giveaway-banner img,
+  .properties-N5 .n5-promo-reserve-btn::before,
+  .properties-N5 .n5-promo-reserve-btn-text,
   .properties-N5 .n5-special-motion,
   .properties-N5 .n5-special-streak,
   .properties-N5 .n5-giveaway-glass,

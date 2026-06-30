@@ -250,13 +250,83 @@
     moveTo(0, false);
   }
 
+  function initPromoVideoAutoplay() {
+    var videos = toArray(document.querySelectorAll(".n5-promo-video"));
+    if (!videos.length) return;
+
+    function ensureVideoSource(video) {
+      var source = video.querySelector("source[data-src]");
+      if (!source || source.getAttribute("src")) return;
+      source.setAttribute("src", source.getAttribute("data-src"));
+      video.load();
+    }
+
+    function prepareVideo(video) {
+      video.muted = false;
+      video.defaultMuted = false;
+      video.volume = 1;
+      video.playsInline = true;
+      video.removeAttribute("muted");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("preload", "none");
+    }
+
+    function tryPlayWithSound(video) {
+      ensureVideoSource(video);
+      prepareVideo(video);
+      var promise = video.play();
+      if (promise && typeof promise.catch === "function") {
+        promise.catch(function () {});
+      }
+    }
+
+    function isVisibleEnough(video) {
+      var rect = video.getBoundingClientRect();
+      var viewH = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (!viewH || rect.width <= 0 || rect.height <= 0) return false;
+      var visible = Math.min(rect.bottom, viewH) - Math.max(rect.top, 0);
+      return visible >= rect.height * 0.45;
+    }
+
+    videos.forEach(function (video) {
+      prepareVideo(video);
+    });
+
+    if (!("IntersectionObserver" in window)) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var video = entry.target;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+          tryPlayWithSound(video);
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: [0, 0.25, 0.45, 0.75, 1] });
+
+    videos.forEach(function (video) {
+      observer.observe(video);
+    });
+
+    ["touchend", "pointerup", "click", "keydown"].forEach(function (eventName) {
+      window.addEventListener(eventName, function () {
+        videos.forEach(function (video) {
+          if (isVisibleEnough(video)) tryPlayWithSound(video);
+        });
+      }, { passive: true });
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       watchSpecializedMenuLabels();
       initUnitTypes();
+      initPromoVideoAutoplay();
     });
   } else {
     watchSpecializedMenuLabels();
     initUnitTypes();
+    initPromoVideoAutoplay();
   }
 })();
