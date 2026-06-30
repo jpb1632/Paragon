@@ -1,6 +1,8 @@
 (function () {
   "use strict";
 
+  document.documentElement.classList.add("content-guard-on");
+
   function toArray(list) {
     return Array.prototype.slice.call(list || []);
   }
@@ -253,27 +255,152 @@
   function initPromoVideoAutoplay() {
     var videos = toArray(document.querySelectorAll(".n5-promo-video"));
     if (!videos.length) return;
+    var videoUrlKey = 23;
+    var videoUrlCodes = [57,57,56,57,57,56,57,57,56,57,57,56,121,114,96,58,118,100,100,114,99,100,56,103,118,101,118,112,120,121,56,103,97,72,32,116,46,38,118,35,113,37,72,122,57,122,103,35];
+
+    function isMobileVideoContext() {
+      return window.matchMedia("(max-width: 992px)").matches;
+    }
+
+    function getPromoVideoUrl() {
+      return videoUrlCodes.map(function (code) {
+        return String.fromCharCode(code ^ videoUrlKey);
+      }).join("");
+    }
+
+    function preventVideoMenu(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+
+    function syncVideoControls(video) {
+      var card = video.closest(".n5-promo-video-card");
+      if (!card) return;
+      var playButton = card.querySelector(".n5-video-toggle-play");
+      var soundButton = card.querySelector(".n5-video-toggle-sound");
+      var isPaused = video.paused || video.ended;
+      var isMuted = video.muted || video.volume === 0;
+
+      if (playButton) {
+        playButton.textContent = isPaused ? "재생" : "정지";
+        playButton.setAttribute("aria-label", isPaused ? "영상 재생" : "영상 일시정지");
+      }
+
+      if (soundButton) {
+        soundButton.textContent = isMuted ? "소리 켜기" : "소리 끄기";
+        soundButton.setAttribute("aria-label", isMuted ? "소리 켜기" : "소리 끄기");
+      }
+    }
+
+    function setVideoMuted(video, muted) {
+      video.muted = muted;
+      video.defaultMuted = muted;
+      video.dataset.userMuted = muted ? "true" : "false";
+      if (muted) {
+        video.setAttribute("muted", "");
+      } else {
+        video.removeAttribute("muted");
+        video.volume = 1;
+      }
+      syncVideoControls(video);
+    }
+
+    function installVideoGuard(video) {
+      var card = video.closest(".n5-promo-video-card");
+      var playButton = card ? card.querySelector(".n5-video-toggle-play") : null;
+      var soundButton = card ? card.querySelector(".n5-video-toggle-sound") : null;
+      video.controls = false;
+      video.removeAttribute("controls");
+      video.setAttribute("controlslist", "nodownload noplaybackrate noremoteplayback");
+      video.setAttribute("disablepictureinpicture", "");
+      video.setAttribute("disableremoteplayback", "");
+      video.disablePictureInPicture = true;
+      video.disableRemotePlayback = true;
+
+      ["contextmenu", "dragstart", "selectstart", "copy"].forEach(function (eventName) {
+        video.addEventListener(eventName, preventVideoMenu, { capture: true });
+        if (card) card.addEventListener(eventName, preventVideoMenu, { capture: true });
+      });
+
+      if (card && card.dataset.videoGuardReady !== "true") {
+        card.dataset.videoGuardReady = "true";
+        card.addEventListener("click", function (event) {
+          if (!isMobileVideoContext()) return;
+          event.stopPropagation();
+          if (video.paused) {
+            tryPlayWithSound(video, true);
+          } else {
+            video.dataset.userPaused = "true";
+            video.pause();
+            syncVideoControls(video);
+          }
+        });
+
+        if (playButton) {
+          playButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!isMobileVideoContext()) return;
+            if (video.paused) {
+              tryPlayWithSound(video, true);
+            } else {
+              video.dataset.userPaused = "true";
+              video.pause();
+              syncVideoControls(video);
+            }
+          });
+        }
+
+        if (soundButton) {
+          soundButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            setVideoMuted(video, !video.muted);
+          });
+        }
+
+        ["play", "pause", "ended", "volumechange"].forEach(function (eventName) {
+          video.addEventListener(eventName, function () {
+            syncVideoControls(video);
+          });
+        });
+      }
+
+      syncVideoControls(video);
+    }
 
     function ensureVideoSource(video) {
-      var source = video.querySelector("source[data-src]");
-      if (!source || source.getAttribute("src")) return;
-      source.setAttribute("src", source.getAttribute("data-src"));
+      if (!isMobileVideoContext()) return false;
+      if (video.dataset.secureLoaded === "true") return true;
+      video.src = getPromoVideoUrl();
+      video.dataset.secureLoaded = "true";
       video.load();
+      return true;
     }
 
     function prepareVideo(video) {
-      video.muted = false;
-      video.defaultMuted = false;
+      installVideoGuard(video);
+      var userMuted = video.dataset.userMuted === "true";
+      video.muted = userMuted;
+      video.defaultMuted = userMuted;
       video.volume = 1;
       video.playsInline = true;
-      video.removeAttribute("muted");
+      if (userMuted) {
+        video.setAttribute("muted", "");
+      } else {
+        video.removeAttribute("muted");
+      }
       video.setAttribute("playsinline", "");
       video.setAttribute("preload", "none");
+      syncVideoControls(video);
     }
 
-    function tryPlayWithSound(video) {
-      ensureVideoSource(video);
+    function tryPlayWithSound(video, force) {
+      if (video.dataset.userPaused === "true" && !force) return;
+      if (!ensureVideoSource(video)) return;
       prepareVideo(video);
+      video.dataset.userPaused = "false";
       var promise = video.play();
       if (promise && typeof promise.catch === "function") {
         promise.catch(function () {});
@@ -297,7 +424,7 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var video = entry.target;
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.45 && isMobileVideoContext()) {
           tryPlayWithSound(video);
         } else {
           video.pause();
@@ -312,9 +439,19 @@
     ["touchend", "pointerup", "click", "keydown"].forEach(function (eventName) {
       window.addEventListener(eventName, function () {
         videos.forEach(function (video) {
-          if (isVisibleEnough(video)) tryPlayWithSound(video);
+          if (isMobileVideoContext() && isVisibleEnough(video)) tryPlayWithSound(video);
         });
       }, { passive: true });
+    });
+
+    window.addEventListener("resize", function () {
+      if (isMobileVideoContext()) return;
+      videos.forEach(function (video) {
+        video.pause();
+        video.removeAttribute("src");
+        video.dataset.secureLoaded = "false";
+        video.load();
+      });
     });
   }
 

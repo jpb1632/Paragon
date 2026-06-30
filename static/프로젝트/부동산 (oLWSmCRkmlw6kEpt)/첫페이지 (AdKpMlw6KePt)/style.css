@@ -1964,6 +1964,7 @@ to {
   display: none;
 }
 .properties-N5 .n5-promo-video-card {
+  position: relative;
   overflow: hidden;
   width: min(100%, 42rem);
   margin: 0 auto;
@@ -1973,6 +1974,49 @@ to {
   box-shadow:
     0 0.9rem 2.4rem rgba(34, 22, 8, 0.16),
     0 0 0 1px rgba(167, 130, 50, 0.2);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.properties-N5 .n5-promo-video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+}
+.properties-N5 .n5-video-controls {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.properties-N5 .n5-video-control {
+  min-width: 5.4rem;
+  height: 3.6rem;
+  border: 1px solid rgba(255, 236, 186, 0.52);
+  border-radius: 999px;
+  background: rgba(10, 8, 5, 0.62);
+  color: #fff8e7;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1.4rem rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.properties-N5 .n5-video-control:focus-visible,
+.properties-N5 .n5-video-control:hover {
+  border-color: rgba(255, 236, 186, 0.78);
+  background: rgba(167, 130, 50, 0.82);
+}
+.properties-N5 .n5-video-toggle-sound {
+  min-width: 7.4rem;
 }
 .properties-N5 .n5-promo-video {
   display: block;
@@ -1981,6 +2025,10 @@ to {
   aspect-ratio: 9 / 16;
   object-fit: cover;
   background: #080808;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .properties-N5 .n5-promo-reserve-btn {
   position: relative;
