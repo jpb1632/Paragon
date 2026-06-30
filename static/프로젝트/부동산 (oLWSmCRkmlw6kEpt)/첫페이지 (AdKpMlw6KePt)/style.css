@@ -1352,7 +1352,7 @@ html.content-guard-on *:not(input):not(textarea):not([contenteditable="true"]) {
 }
 .properties-N4 .popup-track, .popup-overlay-hoisted .popup-track {
   display: grid;
-  grid-template-columns: repeat(3, minmax(28rem, 36rem));
+  grid-template-columns: repeat(2, minmax(28rem, 36rem));
   gap: 2.2rem;
   justify-content: center
 }
@@ -2575,6 +2575,9 @@ to {
     margin-top: 0;
     padding-top: 2.8rem;
     padding-bottom: 6.4rem
+  }
+  .properties-N5 .n5-call-inquiry-wrap {
+    display: none;
   }
   .properties-N5 .n5-lead-stack {
     max-width: 132rem;

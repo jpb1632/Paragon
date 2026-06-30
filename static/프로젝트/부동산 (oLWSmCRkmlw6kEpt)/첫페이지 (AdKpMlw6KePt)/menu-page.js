@@ -657,7 +657,7 @@
           group === "type" && targetVariant
             ? `&variant=${encodeURIComponent(targetVariant)}`
             : "";
-        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260630i&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
+        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260630l&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
       })
       .join("");
   }

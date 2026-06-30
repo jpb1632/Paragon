@@ -318,15 +318,71 @@
     });
   }
 
+  function getConsultationTarget() {
+    return document.getElementById("consultation-form") ||
+      document.getElementById("consultation") ||
+      document.querySelector(".properties-N9");
+  }
+
+  function hidePopupForConsultation() {
+    toArray(document.querySelectorAll(".popup-overlay, .popup-overlay-hoisted")).forEach(function (overlay) {
+      overlay.classList.add("is-hidden");
+      overlay.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  function scrollToConsultation(behavior) {
+    var target = getConsultationTarget();
+    if (!target) return;
+
+    hidePopupForConsultation();
+    target.scrollIntoView({
+      behavior: behavior || "smooth",
+      block: "start"
+    });
+  }
+
+  function isConsultationDeepLink() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      return window.location.hash === "#consultation" || params.get("consultation") === "1";
+    } catch (_) {
+      return window.location.hash === "#consultation";
+    }
+  }
+
+  function initConsultationDeepLink() {
+    window.addEventListener("message", function (event) {
+      if (!event.data || event.data.type !== "consultation-scroll") return;
+      scrollToConsultation("smooth");
+    });
+
+    document.addEventListener("click", function (event) {
+      var link = event.target && event.target.closest ? event.target.closest("a[href='#consultation'], .js-consultation-scroll") : null;
+      if (!link) return;
+      event.preventDefault();
+      scrollToConsultation("smooth");
+    });
+
+    if (!isConsultationDeepLink()) return;
+    [80, 300, 750, 1200].forEach(function (delay, index) {
+      window.setTimeout(function () {
+        scrollToConsultation(index === 0 ? "auto" : "smooth");
+      }, delay);
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       watchSpecializedMenuLabels();
       initUnitTypes();
       initPromoVideoAutoplay();
+      initConsultationDeepLink();
     });
   } else {
     watchSpecializedMenuLabels();
     initUnitTypes();
     initPromoVideoAutoplay();
+    initConsultationDeepLink();
   }
 })();
