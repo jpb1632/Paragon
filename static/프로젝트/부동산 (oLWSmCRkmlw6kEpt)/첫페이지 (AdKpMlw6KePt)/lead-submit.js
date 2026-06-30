@@ -52,6 +52,14 @@
     return String(value || "").replace(/\D/g, "").slice(0, 11);
   }
 
+  function getTodayString() {
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = String(now.getMonth() + 1).padStart(2, "0");
+    var date = String(now.getDate()).padStart(2, "0");
+    return year + "-" + month + "-" + date;
+  }
+
   function setLoading(button, loading, mode) {
     if (!button) return;
     if (loading) {
@@ -106,8 +114,17 @@
   function validateConsultation(payload) {
     var common = validateCommon(payload);
     if (!common.ok) return common;
-    if (!payload.purpose || !payload.purpose.length) {
-      return { ok: false, message: "목적은 최소 하나 이상 선택해 주세요.", key: "purpose" };
+    if (!payload.visitDate) {
+      return { ok: false, message: "방문날짜를 선택해 주세요.", key: "visitDate" };
+    }
+    if (payload.visitDate < getTodayString()) {
+      return { ok: false, message: "방문날짜는 오늘 이후로 선택해 주세요.", key: "visitDate" };
+    }
+    if (!payload.visitTime) {
+      return { ok: false, message: "방문시간을 선택해 주세요.", key: "visitTime" };
+    }
+    if (!payload.visitors) {
+      return { ok: false, message: "방문인원을 선택해 주세요.", key: "visitors" };
     }
     return { ok: true };
   }
@@ -160,11 +177,11 @@
 
     var nameInput = qs("#properties-N9-inputset-a-1", form);
     var phoneInput = qs("#properties-N9-inputset-a-2", form);
-    var regionInput = qs("#properties-N9-inputset-a-3", form);
-    var messageInput = qs("#properties-N9-textarea-a-1", form);
+    var visitDateInput = qs("#properties-N9-inputset-a-3", form);
+    var visitTimeInput = qs("#properties-N9-inputset-a-4", form);
+    var visitorsInput = qs("#properties-N9-inputset-a-5", form);
     var agreeInput = qs("#checkset-properties-N9-b-1", form);
     var submitBtn = qs("button[type='submit']", form);
-    var purposeInputs = qsa(".checkset-wrap .checkset-input", form);
     var honeypotInput = qs("#consult-honeypot");
 
     if (nameInput) {
@@ -190,6 +207,10 @@
       });
     }
 
+    if (visitDateInput) {
+      visitDateInput.setAttribute("min", getTodayString());
+    }
+
     document.addEventListener(
       "submit",
       async function (event) {
@@ -201,19 +222,22 @@
           source: "consultation",
           name: sanitizeName(nameInput ? nameInput.value : ""),
           phone: sanitizePhone(phoneInput ? phoneInput.value : ""),
-          purpose: purposeInputs
-            .filter(function (el) {
-              return el.checked;
-            })
-            .map(function (el) {
-              return String(el.value || "").trim();
-            })
-            .filter(Boolean),
-          region: String(regionInput && regionInput.value ? regionInput.value : "").trim(),
-          message: String(messageInput && messageInput.value ? messageInput.value : "").trim(),
+          purpose: ["방문예약"],
+          visitDate: String(visitDateInput && visitDateInput.value ? visitDateInput.value : "").trim(),
+          visitTime: String(visitTimeInput && visitTimeInput.value ? visitTimeInput.value : "").trim(),
+          visitors: String(visitorsInput && visitorsInput.value ? visitorsInput.value : "").trim(),
+          region: "",
+          message: "",
           agree: !!(agreeInput && agreeInput.checked),
           honeypot: honeypotInput ? String(honeypotInput.value || "").trim() : ""
         };
+        payload.message =
+          "방문날짜: " +
+          payload.visitDate +
+          " / 방문시간: " +
+          payload.visitTime +
+          " / 방문인원: " +
+          payload.visitors;
 
         if (nameInput) nameInput.value = payload.name;
         if (phoneInput) phoneInput.value = payload.phone;
@@ -223,6 +247,9 @@
           alert(check.message);
           if (check.key === "name") focusField(nameInput);
           if (check.key === "phone") focusField(phoneInput);
+          if (check.key === "visitDate") focusField(visitDateInput);
+          if (check.key === "visitTime") focusField(visitTimeInput);
+          if (check.key === "visitors") focusField(visitorsInput);
           if (check.key === "agree") focusField(agreeInput);
           return;
         }

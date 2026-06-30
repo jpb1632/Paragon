@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const SITE_NAME = "Paragon";
   const FIXED_CONTENT_TITLE = "Paragon";
   const CONTENT_TITLE_LOGO_SRC = "../../../../new-assets/paragon/logo_on_p1.png";
@@ -657,7 +657,7 @@
           group === "type" && targetVariant
             ? `&variant=${encodeURIComponent(targetVariant)}`
             : "";
-        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260614c&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
+        return `<a class="menupage-tab ${activeClass}" href="./menu-page.html?v=20260630c&group=${group}&tab=${item.key}${variantQuery}">${item.label}</a>`;
       })
       .join("");
   }

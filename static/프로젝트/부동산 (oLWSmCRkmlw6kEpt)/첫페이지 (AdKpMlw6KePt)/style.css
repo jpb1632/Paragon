@@ -4566,16 +4566,49 @@ body.unit-types-lightbox-open {
   box-shadow: 0 0 0 0.35rem rgba(167, 130, 50, 0.12);
   outline: none;
 }
+.properties-N9 select.form-control {
+  cursor: pointer;
+  color: var(--text-color1);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #a78232 50%), linear-gradient(135deg, #a78232 50%, transparent 50%);
+  background-position: calc(100% - 2rem) 50%, calc(100% - 1.4rem) 50%;
+  background-size: 0.6rem 0.6rem, 0.6rem 0.6rem;
+  background-repeat: no-repeat;
+  padding-right: 4.4rem;
+}
+.properties-N9 select.form-control:invalid {
+  color: #7b8794;
+}
+.properties-N9 input[type="date"].form-control {
+  color: var(--text-color1);
+}
+.properties-N9 input[type="date"].form-control:invalid {
+  color: #7b8794;
+}
+.properties-N9 input[type="date"].form-control::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.75;
+  filter: sepia(50%) saturate(650%) hue-rotate(2deg);
+}
 .properties-N9 .form-wrap {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1.2rem;
   margin-top: 2.4rem
 }
 .properties-N9 .contents-agree {
   display: flex;
   align-items: center;
-  gap: 0.8rem
+  justify-content: flex-end;
+  align-self: flex-end;
+  gap: 0.8rem;
+  text-align: right
+}
+.properties-N9 .form-btn {
+  width: 100%
 }
 .properties-N9 .n9-scroll-anchor {
   position: relative;
@@ -4760,8 +4793,6 @@ body.unit-types-lightbox-open {
   .properties-N9 .form-box + .form-box {
     margin-top: 0
   }
-  .properties-N9 .form-box:nth-child(3),
-  .properties-N9 .form-box:nth-child(5),
   .properties-N9 .form-wrap {
     grid-column: 1 / -1
   }
@@ -4796,10 +4827,13 @@ body.unit-types-lightbox-open {
     gap: 1rem
   }
   .properties-N9 .form-btn .btnset-primary {
-    min-width: 18rem;
-    height: 6rem;
+    width: 100%;
+    min-width: 0;
+    height: 7rem;
     border-radius: 1.6rem;
-    box-shadow: 0 1.2rem 2.4rem rgba(19, 40, 74, 0.14)
+    font-size: 3.9rem;
+    font-weight: 800 !important;
+    box-shadow: 0 1.2rem 2.4rem rgba(176, 91, 18, 0.24)
   }
 }
 @media (max-width: 992px) {
@@ -4835,11 +4869,18 @@ body.unit-types-lightbox-open {
     gap: 0.8rem 2.4rem
   }
   .properties-N9 .form-wrap {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     margin-top: 1.8rem
   }
+  .properties-N9 .contents-agree {
+    justify-content: flex-end;
+    align-self: flex-end;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.8rem
+  }
   .properties-N9 .form-btn {
-    margin-top: 1.4rem;
     max-width: 100%
   }
   .properties-N9 .modal-confirm .modal-figure {
@@ -4894,14 +4935,74 @@ body.unit-types-lightbox-open {
   }
 }
 .properties-N9 .form-btn .btnset-primary {
-  background: #d9b357 !important;
-  color: #183355 !important;
-  border-color: #d9b357 !important;
+  position: relative;
+  overflow: hidden;
+  background: #c96f18 !important;
+  color: #fff !important;
+  border-color: #c96f18 !important;
+  width: 100%;
+  font-weight: 800 !important;
+  letter-spacing: 0.045em;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  isolation: isolate;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, border-color 0.22s ease
+}
+.properties-N9 .form-btn .btnset-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.34) 44%, rgba(255, 255, 255, 0) 68%);
+  transform: translateX(-120%);
+  animation: n9-submit-shine 3.4s ease-in-out infinite;
+  pointer-events: none
+}
+.properties-N9 .form-btn .btnset-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: inherit;
+  pointer-events: none
 }
 .properties-N9 .form-btn .btnset-primary:hover,
+.properties-N9 .form-btn .btnset-primary:focus-visible {
+  background: #dc7f22 !important;
+  border-color: #dc7f22 !important;
+  box-shadow: 0 1.4rem 2.8rem rgba(201, 111, 24, 0.28), 0 0 0 0.35rem rgba(201, 111, 24, 0.14);
+  transform: translateY(-1px)
+}
 .properties-N9 .form-btn .btnset-primary:active {
-  background: #f5cf5a !important;
-  border-color: #f5cf5a !important;
+  transform: translateY(0);
+  background: #a95b12 !important;
+  border-color: #a95b12 !important;
+  box-shadow: 0 0.8rem 1.8rem rgba(176, 91, 18, 0.22)
+}
+@keyframes n9-submit-shine {
+  0%, 42% { transform: translateX(-120%); }
+  64%, 100% { transform: translateX(120%); }
+}
+@media (max-width: 640px) {
+  .properties-N9 .form-btn .btnset-primary {
+    height: 6.2rem;
+    font-size: 2.9rem;
+    letter-spacing: 0.025em
+  }
+}
+@media (max-width: 380px) {
+  .properties-N9 .form-btn .btnset-primary {
+    font-size: 2.55rem;
+    letter-spacing: 0.012em
+  }
 }
 /* properties-N3 */
 /* ==========================================
